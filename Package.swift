@@ -1,27 +1,26 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 5.8
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
-    name: "KakaoMapSPM",
+    name: "KakaoMapsSDK_SPM",
+    platforms: [.iOS(.v13), .macCatalyst(.v13)],
+    
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "KakaoMapSPM",
-            targets: ["KakaoMapSPM"]),
+            name: "KakaoMapsSDK_SPM",
+            targets: ["KakaoMapsSDK-SPM"]),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "KakaoMapSPM",
-            dependencies: ["xcframework"]
-        ),
-        //.binaryTarget(name: "framework", path: "DaumMap.embeddedframework/DaumMap.framework"),
-        .binaryTarget(name: "xcframework", path: "DaumMap.xcframework"),
-        .testTarget(
-            name: "KakaoMapSPMTests",
-            dependencies: ["KakaoMapSPM"]),
-    ]
+            name: "KakaoMapsSDK-SPM",
+            dependencies: ["framework"],
+            resources: [.copy("KakaoMapsSDKBundle.bundle/assets")]),
+        .binaryTarget(name: "framework", path: "BinaryFramework/DaumMap.xcframework")
+    ],
+    swiftLanguageVersions: [.v5]
 )
